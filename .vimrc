@@ -1,42 +1,5 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Maintainer: 
-"       Amir Salihefendic
-"       http://amix.dk - amix@amix.dk
-"
-" Version: 
-"       5.0 - 29/05/12 15:43:36
-"
-" Blog_post: 
-"       http://amix.dk/blog/post/19691#The-ultimate-Vim-configuration-on-Github
-"
-" Awesome_version:
-"       Get this config, nice color schemes and lots of plugins!
-"
-"       Install the awesome version from:
-"
-"           https://github.com/amix/vimrc
-"
-" Syntax_highlighted:
-"       http://amix.dk/vim/vimrc.html
-"
-" Raw_version: 
-"       http://amix.dk/vim/vimrc.txt
-"
-" Sections:
-"    -> General
-"    -> VIM user interface
-"    -> Colors and Fonts
-"    -> Files and backups
-"    -> Text, tab and indent related
-"    -> Visual mode related
-"    -> Moving around, tabs and buffers
-"    -> Status line
-"    -> Editing mappings
-"    -> vimgrep searching and cope displaying
-"    -> Spell checking
-"    -> Misc
-"    -> Helper functions
-"
+" originally copied from http://amix.dk/blog/post/19691#The-ultimate-Vim-configuration-on-Github
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
@@ -160,8 +123,9 @@ set expandtab
 set smarttab
 
 " 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
+set shiftwidth=3
+set tabstop=3
+set softtabstop=3
 
 " Linebreak on 500 characters
 set lbr
@@ -243,7 +207,8 @@ set viminfo^=%
 set laststatus=2
 
 " Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ Pos:\ [%l,%v][%p%%]
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -332,6 +297,38 @@ map <leader>q :e ~/buffer<cr>
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
 
+
+"
+" my additions
+"
+
+" Cool tab completion stuff
+set wildmenu
+set wildmode=list:longest,full
+
+" Enable mouse support in console
+set mouse=a
+
+" Got backspace?
+set backspace=2
+
+" Line Numbers PWN!
+set number
+
+" Ignoring case is a fun trick
+set ignorecase
+
+" And so is Artificial Intellegence!
+set smartcase
+
+" When I close a tab, remove the buffer
+set nohidden
+
+" Set off the other paren
+highlight MatchParen ctermbg=4
+
+"Status line gnarliness
+"set statusline=%F%m%r%h%w\ (%{&ff}){%Y}\ [%l,%v][%p%%]
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
