@@ -1,0 +1,43 @@
+VAGRANT
+=======
+
+copy ssh keys (for github access)
+share some directory (~/boxes/shared/ ?)
+
+VIM SETUP
+=========
+
+http://logicalfriday.com/2011/07/18/using-vim-with-pathogen/
+
+cd ~/.vim
+git submodule add git://git.wincent.com/command-t.git bundle/command-t
+git submodule init
+
+
+mkdir -p ~/.vim/autoload ~/.vim/bundle
+cd ~/.vim/autoload
+curl https://github.com/tpope/vim-pathogen/raw/master/autoload/pathogen.vim > pathogen.vim
+
+git clone git://github.com/scrooloose/nerdtree.git
+git clone git://git.wincent.com/command-t.git
+git clone git://github.com/tpope/vim-vividchalk.git
+git submodule add git://github.com/nono/vim-handlebars.git bundle/handlebars
+
+
+install YouCompleteMe
+https://github.com/Valloric/YouCompleteMe (requires Vundle)
+
+git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+git clone https://github.com/Valloric/YouCompleteMe.git ~/.vim/bundle/YouCompleteMe
+cd ~/.vim/bundle/YouCompleteMe
+git submodule update --init --recursive
+./install.sh --clang-completer
+
+sudo mv /usr/bin/vim /usr/bin/vim-old
+sudo ln -s /usr/local/bin/vim /usr/bin/vim
+
+cp ~/src/.ycm_extra_conf.py ~/.vim/.ycm_extra_conf_global.py
+
+cd ~/.vim/bundle/
+git clone https://github.com/scrooloose/nerdtree.git
+

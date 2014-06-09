@@ -1,0 +1,48 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# override these variables in ~/.vagrant.d/Vagrantfile for your local changes
+$local_projects_directory ||= "~/projects/vagrant/"
+
+$script_bootstrap = <<SCRIPT
+echo Installing depedencies...
+apt-get update
+#apt-get upgrade
+apt-get -y install git curl vim default-jdk make graphviz
+SCRIPT
+
+$script_install_seshbot = <<SCRIPT
+echo Installing rvm...
+curl -L https://get.rvm.io | bash -s stable
+source /home/vagrant/.rvm/scripts/rvm
+#source /etc/profile.d/rvm.sh
+#source /usr/local/rvm/scripts/rvm
+
+echo Installing ruby...
+rvm install 1.9.3
+rvm use 1.9.3
+rvm rubygems current
+
+echo Downloading seshbot.com source...
+git clone -b source https://github.com/seshbot/seshbot.github.io.git seshbot
+cd seshbot/
+git clone https://github.com/seshbot/seshbot.github.io.git _deploy
+
+gem install bundler
+bundle install
+
+echo Generating seshbot.com static files...
+rake generate
+#rake deploy
+SCRIPT
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "hashicorp/precise64"
+  config.vm.provision "shell", inline: $script_bootstrap
+  config.vm.provision "shell", inline: $script_install_seshbot, :privileged => false
+  #config.vm.synced_folder $local_projects_directory, "/home/vagrant/projects/"
+end
+
